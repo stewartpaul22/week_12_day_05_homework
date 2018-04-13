@@ -59,6 +59,7 @@ input {
 	display: block;
 }
 
-/* select {
-	display: block;
-} */
+#main-map {
+	width: 100%;
+  height: 400px;
+}
