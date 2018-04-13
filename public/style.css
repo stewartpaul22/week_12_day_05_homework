@@ -46,3 +46,19 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+input {
+	display: block;
+}
+
+#set-home-button {
+	display: block;
+}
+
+#country-select {
+	display: block;
+}
+
+/* select {
+	display: block;
+} */

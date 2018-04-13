@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Destination Tracker</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src='index.js'></script>
-  </head>
-  <body>
-    <header>Destination Tracker</header>
-    <ul id='country-list'>
-    </ul>
+<head>
+  <title>Destination Tracker</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src='index.js'></script>
+</head>
+<body>
+
+  <header>
+    <h1>Destination Tracker</h1>
+  </header>
+
+  <section>
+
+    <h3>Enter your home coordinates</h3>
+    <label for="home-lat">Latitude</label>
+    <input type="text" id="home-lat">
+
+    <label for="home-lng">Longitude</label>
+    <input type="text" id="home-lng">
+
+    <button type="button" id="set-home-button">Set Home Location</button>
+
+    <label for="country-select">Country</label>
+    <select id="country-select">
+      <option disabled selected>Choose a desination</option>
+    </select>
+
+    <p>or</p>
+
+    <h3>Enter your destination coordinates</h3>
+    <label for="destination-lat">Latitude</label>
+    <input type="text" id="destination-lat">
+
+    <label for="destination-lng">Longitude</label>
+    <input type="text" id="destination-lng">
+
+    <button type="button" id="save-destination">Save Destination</button>
+
+
+  </section>
+
   </body>
-</html>
+  </html>
