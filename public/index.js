@@ -1,13 +1,30 @@
-const app = function(){
+const makeRequest = function(url, callback){
+  var request = new XMLHttpRequest();
+  request.open("GET", url);
+  request.addEventListener('load', callback);
+  request.send();
+}
 
-  const countries = [
-    { lat: 54, lng: -2 },
-    { lat: 46.227638, lng: 2.213749 },
-    { lat: 40.463667, lng: -3.749220 },
-    { lat: 51.165691, lng: 10.451526 },
-    { lat: 41.871940, lng: 12.567380 },
-    { lat: 51.919438, lng: 19.145136 }
-  ];
+const requestComplete = function(){
+  if(this.status !== 200) return;
+  var jsonString = this.responseText;
+  var countries = JSON.parse(jsonString);
+  populateSelect(countries);
+}
+
+const populateSelect = function(countries){
+  const select = document.getElementById('country-select');
+  countries.forEach(function(country, index){
+    let option = document.createElement('option');
+    option.innerText = country.name;
+    option.value = index;
+    select.appendChild(option);
+  })
+}
+
+const app = function(){
+  var url = 'https://restcountries.eu/rest/v2';
+  makeRequest(url, requestComplete);
 
   // initial map setup - refactor this into a function then call it within app
   const initialCenter = { lat: 25, lng: 0 }
@@ -22,7 +39,7 @@ const app = function(){
     mainMap.addMarker(homeCoords);
   }
 
-  const addMarkerToAll = function(){
+  const addMarkerToAll = function(countries){
     for (let country of countries) {
       mainMap.addMarker(country);
     }
