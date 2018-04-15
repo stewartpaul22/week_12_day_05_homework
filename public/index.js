@@ -24,30 +24,31 @@ const populateSelect = function(countries){
 }
 
 const setInitialMap = function(countries){
-  const initialCenter = { lat: 25, lng: 0 }
+  const initialCenter = { lat: 48.33, lng: 17.5 }
   const container = document.getElementById('main-map');
-  const mainMap = new MapWrapper(container, initialCenter, 1);
+  const mainMap = new MapWrapper(container, initialCenter, 4);
   addMarkerToAll(countries, mainMap);
 }
 
-var getCoords = function(country) {
-  var lat = country["latlng"][0];
-  var lng = country["latlng"][1];
-  var coords = { lat: lat, lng: lng };
+const getCoords = function(country) {
+  const lat = country["latlng"][0];
+  const lng = country["latlng"][1];
+  const coords = { lat: lat, lng: lng };
   return coords;
 }
 
 const addMarkerToAll = function(countries, mainMap){
-  // let lat = 0;
-  // let lng = 0;
-  // let coords = {};
   for (let country of countries) {
     let coords = getCoords(country);
-    // lat = country.latLng[0];
-    // lng = country.latLng[1];
-    // coords = { lat: lat, lng: lng };
     mainMap.addMarker(coords);
   }
+}
+
+const setHomeMarker = function(){
+  const homeLat = parseFloat((document.getElementById('home-lat').value));
+  const homeLng = parseFloat((document.getElementById('home-lng').value));
+  const homeCoords = { lat: homeLat, lng: homeLng }
+  mainMap.addMarker(homeCoords);
 }
 
 // --- app -----------------------
@@ -56,12 +57,9 @@ const app = function(){
   var url = 'https://restcountries.eu/rest/v2';
   makeRequest(url, requestComplete);
 
-  const setHomeMarker = function(){
-    const homeLat = parseFloat((document.getElementById('home-lat').value));
-    const homeLng = parseFloat((document.getElementById('home-lng').value));
-    const homeCoords = { lat: homeLat, lng: homeLng }
-    mainMap.addMarker(homeCoords);
-  }
+  // Show all countries should add markers to all countries where info windows can be accessed for further detail
+  const allCountriesButton = document.getElementById('show-all-button');
+  allCountriesButton.addEventListener('click', addMarkerToAll);
 
   // add an info window to each country that will show info pulled from the json
 
