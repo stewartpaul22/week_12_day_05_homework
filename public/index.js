@@ -63,12 +63,12 @@ const setHomeMarker = function(mainMap){
   const homeLng = parseFloat((document.getElementById('home-lng').value));
   const homeCoords = { lat: homeLat, lng: homeLng }
   if(homeLat === NaN || homeLng === NaN) return;
+  if(homeLat === null || homeLng === null) return;
   mainMap.addMarker(homeCoords);
   saveHomeLocation(homeCoords);
 }
 
 const setDestinationMarker = function(mainMap, destination){
-
   const destLat = destination.latlng[0];
   const destLng = destination.latlng[1];
   const destinationCoords = { lat: destLat, lng: destLng }
@@ -78,6 +78,12 @@ const setDestinationMarker = function(mainMap, destination){
 const saveHomeLocation = function(coords){
   const jsonString = JSON.stringify(coords);
   localStorage.setItem('homeLocation', jsonString);
+}
+
+const getHomeLocation = function(){
+  let jsonString = localStorage.getItem('homeLocation');
+  let homeLocation = JSON.parse(jsonString);
+  return homeLocation;
 }
 
 // const saveDestination = function(mainMap){
@@ -103,16 +109,13 @@ const app = function(){
   const container = document.getElementById('main-map');
   const mainMap = new MapWrapper(container, initialCenter, 4);
 
-  // console.log(mainMap.calculateDistance(new google.maps.LatLng(55.865005, -4.036945), new google.maps.LatLng(55.866111, -4.043887)));
-
-  console.log(mainMap.calculateDistance({ lat: 55.865005, lng: -4.036945}, { lat: 55.866111, lng: -4.043887}));
+  // console.log(mainMap.calculateDistance({ lat: 55.865005, lng: -4.036945}, { lat: 55.866111, lng: -4.043887}));
 
   const homeButton = document.getElementById('set-home-button');
   homeButton.addEventListener('click', function(){
     setHomeMarker(mainMap)
   });
 
-  // when user clicks 'Save Destination' a div should show the distance between home location and destination.
   const saveDestinationButton = document.getElementById('save-destination');
   saveDestinationButton.addEventListener('click', function(){
     let jsonString = localStorage.getItem('destinationLocation');
