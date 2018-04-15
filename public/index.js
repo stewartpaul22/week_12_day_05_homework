@@ -73,6 +73,20 @@ const setDestinationMarker = function(mainMap, destination){
   const destLng = destination.latlng[1];
   const destinationCoords = { lat: destLat, lng: destLng }
   mainMap.addMarker(destinationCoords);
+  getDistance(destinationCoords, mainMap, destination);
+}
+
+const getDistance = function(destinationCoords, mainMap, destination){
+  const homeCoords = getHomeLocation();
+  const distance = Math.round(mainMap.calculateDistance(homeCoords, destinationCoords)/1000);
+  displayDistance(distance, destination);
+}
+
+const displayDistance = function(distance, destination){
+  const destDiv = document.getElementById('destination-info');
+  const distanceLabel = document.createElement('p');
+  distanceLabel.innerText = `It's ${distance}km from your gaff to ${destination['name']}, as the crow flies.`;
+  destDiv.appendChild(distanceLabel);
 }
 
 const saveHomeLocation = function(coords){
@@ -121,7 +135,6 @@ const app = function(){
     let jsonString = localStorage.getItem('destinationLocation');
     let savedDestination = JSON.parse(jsonString);
     setDestinationMarker(mainMap, savedDestination);
-
   })
 
   // add an info window to each country that will show info pulled from the json
