@@ -140,6 +140,31 @@ const app = function(){
   // add an info window to each country that will show info pulled from the json
 
   // add a pie chart that shows a breakdown of countries per continent
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawCountriesChart);
+  function drawCountriesChart() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Continent');
+    data.addColumn('number', 'Countries');
+    data.addRows([
+      ['Europe', 27],
+      ['Asia', 14],
+      ['Africa', 22],
+      ['North America', 3],
+      ['South America', 9],
+      ['Australia', 2],
+      ['Antartica', 1]
+    ]);
+
+    var options = {title:'Countries per continent',
+    width:400,
+    height:300};
+
+    var chart = new google.visualization.PieChart(document.getElementById('main-chart'));
+    chart.draw(data, options);
+  }
+
 
   // add a pie chart that show a breakdown of continents visited by user
 
