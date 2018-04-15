@@ -3,7 +3,7 @@
 <head>
   <title>Destination Tracker</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
-  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
   <script src='index.js'></script>
   <script src='mapWrapper.js'> </script>
 </head>
@@ -29,21 +29,22 @@
       <option disabled selected>Choose a desination</option>
     </select>
 
-    <p>or</p>
+    <!-- <p>or</p> -->
 
-    <h3>Enter your destination coordinates</h3>
+    <!-- <h3>Enter your destination coordinates</h3>
     <label for="destination-lat">Latitude</label>
     <input type="text" id="destination-lat">
 
     <label for="destination-lng">Longitude</label>
-    <input type="text" id="destination-lng">
+    <input type="text" id="destination-lng"> -->
 
     <button type="button" id="save-destination">Save Destination</button>
 
     <button type="button" id="show-all-button">Show All Countries</button>
 
-    <div id='main-map'></div>
+    <div id='destination-info'></div>
 
+    <div id='main-map'></div>
 
   </section>
 
