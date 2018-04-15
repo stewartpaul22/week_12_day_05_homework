@@ -34,8 +34,6 @@ const getDestination = function(countries){
 const saveDestinationLocation = function(country){
   const jsonString = JSON.stringify(country);
   localStorage.setItem('destinationLocation', jsonString);
-  // const coords = getCoords(country);
-  // mainMap.addMarker(coords);
 }
 
 // const setInitialMap = function(countries){
@@ -52,13 +50,13 @@ const getCoords = function(country) {
   return coords;
 }
 
-const addMarkerToAll = function(countries, mainMap){
-  const countries = getCountries();
-  for (let country of countries) {
-    let coords = getCoords(country);
-    mainMap.addMarker(coords);
-  }
-}
+// const addMarkerToAll = function(countries, mainMap){
+//   const countries = getCountries();
+//   for (let country of countries) {
+//     let coords = getCoords(country);
+//     mainMap.addMarker(coords);
+//   }
+// }
 
 const setHomeMarker = function(mainMap){
   const homeLat = parseFloat((document.getElementById('home-lat').value));
@@ -82,26 +80,18 @@ const saveHomeLocation = function(coords){
   localStorage.setItem('homeLocation', jsonString);
 }
 
-const saveDestination = function(mainMap){
-  // if user selects country from the dropdown, pull the lat lng coords from there, otherwise get them from the input boxes.
-
-  // get desination from local storage
-  let jsonString = localStorage.getItem('destinationLocation');
-  let savedDestination = JSON.parse(jsonString);
-
-
-  // const selectedCountry = document.getElementById('country-select');
-  // selectedCountry.addEventListener('change', function(){
-  //
-  // })
-
-  // add marker to destination
-
-  // save destination to local storage
-
-  updateDistanceTable();
-
-}
+// const saveDestination = function(mainMap){
+//   // get desination from local storage
+//   let jsonString = localStorage.getItem('destinationLocation');
+//   let savedDestination = JSON.parse(jsonString);
+//
+//   // add marker to destination
+//
+//   // save destination to local storage
+//
+//   updateDistanceTable();
+//
+// }
 
 // --- app -----------------------
 
@@ -109,9 +99,13 @@ const app = function(){
   var url = 'https://restcountries.eu/rest/v2';
   makeRequest(url, requestComplete);
 
-  const initialCenter = { lat: 48.33, lng: 17.5 }
+  const initialCenter = { lat: 48.33, lng: 10.5 }
   const container = document.getElementById('main-map');
   const mainMap = new MapWrapper(container, initialCenter, 4);
+
+  // console.log(mainMap.calculateDistance(new google.maps.LatLng(55.865005, -4.036945), new google.maps.LatLng(55.866111, -4.043887)));
+
+  console.log(mainMap.calculateDistance({ lat: 55.865005, lng: -4.036945}, { lat: 55.866111, lng: -4.043887}));
 
   const homeButton = document.getElementById('set-home-button');
   homeButton.addEventListener('click', function(){
@@ -124,8 +118,8 @@ const app = function(){
     let jsonString = localStorage.getItem('destinationLocation');
     let savedDestination = JSON.parse(jsonString);
     setDestinationMarker(mainMap, savedDestination);
-  })
 
+  })
 
   // add an info window to each country that will show info pulled from the json
 
