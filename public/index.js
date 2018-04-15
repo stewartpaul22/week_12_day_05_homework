@@ -10,7 +10,7 @@ const requestComplete = function(){
   var jsonString = this.responseText;
   var countries = JSON.parse(jsonString);
   populateSelect(countries);
-  setInitialMap(countries);
+  //setInitialMap(countries);
 }
 
 const populateSelect = function(countries){
@@ -27,7 +27,7 @@ const setInitialMap = function(countries){
   const initialCenter = { lat: 48.33, lng: 17.5 }
   const container = document.getElementById('main-map');
   const mainMap = new MapWrapper(container, initialCenter, 4);
-  addMarkerToAll(countries, mainMap);
+  setHomeMarker(mainMap);
 }
 
 const getCoords = function(country) {
@@ -44,10 +44,11 @@ const addMarkerToAll = function(countries, mainMap){
   }
 }
 
-const setHomeMarker = function(){
+const setHomeMarker = function(mainMap){
   const homeLat = parseFloat((document.getElementById('home-lat').value));
   const homeLng = parseFloat((document.getElementById('home-lng').value));
   const homeCoords = { lat: homeLat, lng: homeLng }
+  if(homeLat === NaN || homeLng === NaN) return;
   mainMap.addMarker(homeCoords);
 }
 
@@ -57,15 +58,22 @@ const app = function(){
   var url = 'https://restcountries.eu/rest/v2';
   makeRequest(url, requestComplete);
 
+  const initialCenter = { lat: 48.33, lng: 17.5 }
+  const container = document.getElementById('main-map');
+  const mainMap = new MapWrapper(container, initialCenter, 4);
+
+  const homeButton = document.getElementById('set-home-button');
+  homeButton.addEventListener('click', function(){
+    setHomeMarker(mainMap)
+  });
+
   // Show all countries should add markers to all countries where info windows can be accessed for further detail
   const allCountriesButton = document.getElementById('show-all-button');
-  allCountriesButton.addEventListener('click', addMarkerToAll);
+  allCountriesButton.addEventListener('click', function(){
+    addMarkerToAll(mainMap)
+  });
 
   // add an info window to each country that will show info pulled from the json
-
-  // add marker to map at the coordinates entered for home - refactor this into a function
-  const homeButton = document.getElementById('set-home-button');
-  homeButton.addEventListener('click', setHomeMarker);
 
   // add a pie chart that shows a breakdown of countries per continent
 
