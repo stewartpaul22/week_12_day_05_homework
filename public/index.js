@@ -10,7 +10,37 @@ const requestComplete = function(){
   var jsonString = this.responseText;
   var countries = JSON.parse(jsonString);
   populateSelect(countries);
+  populatePieChart(countries);
   getDestination(countries);
+}
+
+const populatePieChart = function(countries){
+  // add a pie chart that shows a breakdown of countries per continent
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawCountriesChart);
+  function drawCountriesChart() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Continent');
+    data.addColumn('number', 'Countries');
+    data.addRows([
+      ['Europe', 46],
+      ['Asia', 48],
+      ['Africa', 54],
+      ['North America', 4],
+      ['Central America', 23],
+      ['South America', 13],
+      ['Oceania', 14],
+      ['Antartica', 1]
+    ]);
+
+    var options = {title:'Countries per continent',
+    width:400,
+    height:300};
+
+    var chart = new google.visualization.PieChart(document.getElementById('main-chart'));
+    chart.draw(data, options);
+  }
 }
 
 const populateSelect = function(countries){
@@ -85,7 +115,8 @@ const getDistance = function(destinationCoords, mainMap, destination){
 const displayDistance = function(distance, destination){
   const destDiv = document.getElementById('destination-info');
   const distanceLabel = document.createElement('p');
-  distanceLabel.innerText = `It's ${distance}km from your gaff to ${destination['name']}, as the crow flies.`;
+  distanceLabel.classList.add('distanceOutput');
+  distanceLabel.innerText = `It's ${distance}km from your house to ${destination['name']}, as the crow flies.`;
   destDiv.appendChild(distanceLabel);
 }
 
@@ -136,13 +167,6 @@ const app = function(){
     let savedDestination = JSON.parse(jsonString);
     setDestinationMarker(mainMap, savedDestination);
   })
-
-  // add an info window to each country that will show info pulled from the json
-
-  // add a pie chart that shows a breakdown of countries per continent
-
-  // add a pie chart that show a breakdown of continents visited by user
-
 
   const allCountriesButton = document.getElementById('show-all-button');
   allCountriesButton.addEventListener('click', function(){

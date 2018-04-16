@@ -4,6 +4,7 @@
   <title>Destination Tracker</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src='index.js'></script>
   <script src='mapWrapper.js'> </script>
 </head>
@@ -15,38 +16,45 @@
 
   <section>
 
-    <h3>Enter your home coordinates</h3>
-    <label for="home-lat">Latitude</label>
-    <input type="text" id="home-lat" placeholder="e.g. 55.865005">
+    <div id="form">
 
-    <label for="home-lng">Longitude</label>
-    <input type="text" id="home-lng" placeholder="e.g. -4.036945">
+      <h3>Enter your home coordinates</h3>
+      <label for="home-lat">Latitude</label>
+      <input type="text" id="home-lat" placeholder="e.g. 55.865005">
 
-    <button type="button" id="set-home-button">Set Home Location</button>
+      <label for="home-lng">Longitude</label>
+      <input type="text" id="home-lng" placeholder="e.g. -4.036945">
 
-    <label for="country-select">Country</label>
-    <select id="country-select">
-      <option disabled selected>Choose a desination</option>
-    </select>
+      <button type="button" id="set-home-button">Set Home Location</button>
 
-    <!-- <p>or</p> -->
+      <label for="country-select">Where have you visited?</label>
+      <select id="country-select">
+        <option disabled selected>Choose a destination</option>
+      </select>
 
-    <!-- <h3>Enter your destination coordinates</h3>
-    <label for="destination-lat">Latitude</label>
-    <input type="text" id="destination-lat">
+      <!-- <p>or</p> -->
 
-    <label for="destination-lng">Longitude</label>
-    <input type="text" id="destination-lng"> -->
+      <!-- <h3>Enter your destination coordinates</h3>
+      <label for="destination-lat">Latitude</label>
+      <input type="text" id="destination-lat">
 
-    <button type="button" id="save-destination">Save Destination</button>
+      <label for="destination-lng">Longitude</label>
+      <input type="text" id="destination-lng"> -->
 
-    <button type="button" id="show-all-button">Show All Countries</button>
+      <button type="button" id="save-destination">Save Destination</button>
 
-    <div id='destination-info'></div>
+      <!-- <button type="button" id="show-all-button">Show All Countries</button> -->
 
-    <div id='main-map'></div>
+      <div id='destination-info'></div>
+
+    </div>
+
+    <div id='main-chart'></div>
+
 
   </section>
 
-  </body>
-  </html>
+  <div id='main-map'></div>
+
+</body>
+</html>
